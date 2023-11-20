@@ -1,0 +1,34 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import DigitalSignage from "../../layouts/DigitalSignage.astro";
+
+export async function getStaticPaths() {
+  const sbApi = useStoryblokApi();
+
+  const { data } = await sbApi.get("cdn/stories/", {
+    content_type: "screenLayout",
+    version: "draft"
+  });
+
+  const stories = Object.values(data.stories);
+
+
+  return stories.map((story:any) => {
+    return {
+      params: { slug: story.full_slug.replace("digital-signage/","") },
+    };
+  });
+}
+
+const sbApi = useStoryblokApi();
+const { slug } = Astro.params;
+const { data } = await sbApi.get(`cdn/stories/digital-signage/${slug}`, {
+  version: "draft",
+});
+
+const story = data.story;
+---
+<DigitalSignage>
+  <StoryblokComponent blok={story.content} />
+</DigitalSignage>
