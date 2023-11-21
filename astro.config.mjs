@@ -29,7 +29,8 @@ export default defineConfig({
       panel: 'components/storyblok/widgets/Panel',
       sharedPanel: 'components/storyblok/widgets/SharedPanel',
       whatsOnPromo: 'components/storyblok/widgets/WhatsOnPromo',
-      htmlBlock: 'components/storyblok/widgets/HtmlBlock'
+      htmlBlock: 'components/storyblok/widgets/HtmlBlock',
+      videoLoop: 'components/storyblok/widgets/VideoLoop',
     }
   }), tailwind(), react(), vue(), compressor()],
   output: "hybrid",

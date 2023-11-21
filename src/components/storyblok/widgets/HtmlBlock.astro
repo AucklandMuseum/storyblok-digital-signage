@@ -1,7 +1,10 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { getImage } from "astro:assets";
 
 const { blok } = Astro.props;
+
+const html = blok.htmlCode;
 ---
 
-<div {...storyblokEditable(blok)} class="w-full" set:html={blok.htmlCode} />
+<div {...storyblokEditable(blok)} class="w-full" set:html={html} />
