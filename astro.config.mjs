@@ -13,6 +13,9 @@ export default defineConfig({
     port: 3000,
     host: true
   },
+  image: {
+    remotePatterns: [{ protocol: "https" }],
+  },
   //base: 'auckland-museum',
   trailingSlash: 'never',
   integrations: [storyblok({

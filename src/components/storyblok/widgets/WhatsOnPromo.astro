@@ -1,5 +1,6 @@
 ---
 import { renderRichText, storyblokEditable } from '@storyblok/astro'
+import { getImage } from 'astro:assets';
 
 const { blok } = Astro.props
 
@@ -9,13 +10,17 @@ const backgroundColor = blok.backgroundColour.color
   : "#000000";
 
 const renderedRichText = renderRichText(blok.description)
+
+console.log(blok.image)
+
+const optimizedBackground = await getImage({src: blok.image.filename, width:1000, height:1000})
 ---
 
 <div {...storyblokEditable(blok)}
 style={`color:${textColor};background-color:${backgroundColor};`}
 class:list={["w-full h-full flex justify-items-stretch",`promo-${blok.size}`]}
 >
-  <div class:list={["flex-grow bg-cover",`image-${blok.size}`]} style=`background-image:url('${blok.image.filename}')`>
+  <div class:list={["flex-grow bg-cover",`image-${blok.size}`]} style=`background-image:url('${optimizedBackground.src}')`>
   </div>
   <div class:list={["flex grow flex-col self-end p-[2.7em] justify-items-stretch",`banner-${blok.size}` ]}>
       
