@@ -1,0 +1,34 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+import * as Functions from 'lib/functions.ts'
+
+const { blok } = Astro.props;
+
+const textColor = blok.textColour.color ? blok.textColour.color : "#FFFFFF";
+const backgroundColor = blok.backgroundColour.color
+  ? blok.backgroundColour.color
+  : "#000000";
+
+  const orientation = blok.orientation ? blok.orientation : "H";
+  const resolution = blok.resolution ? blok.resolution : "FHD";
+const screenWidth = Functions.ResolutionWidth(resolution, orientation);
+const screenHeight = Functions.ResolutionHeight(resolution, orientation);
+const blokWidth = screenWidth * (blok.widthNumber ? blok.widthNumber : 1);
+const blokHeight = screenHeight * (blok.heightNumber ? blok.heightNumber : 1);
+---
+
+<body
+  {...storyblokEditable(blok)}
+  style={`color:${textColor};background-color:${backgroundColor};width:${blokWidth}px;height:${blokHeight}px;`}
+><div class="flex" style=`flex-direction: ${blok.panelFlow};`>
+  {
+    blok.content?.map((blok: any) => {
+      blok["orientation"] = orientation;
+      blok["parentWidth"] = blokWidth;
+      blok["parentHeight"] = blokHeight;
+      return <StoryblokComponent blok={blok} />;
+    })
+  }</div>
+</body>

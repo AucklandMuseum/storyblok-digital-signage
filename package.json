@@ -20,7 +20,7 @@
     "@headlessui/vue": "^1.7.15",
     "@heroicons/vue": "^2.0.18",
     "@nanostores/vue": "^0.10.0",
-    "@storyblok/astro": "^2.5.11",
+    "@storyblok/astro": "^3.0.1",
     "@tailwindcss/container-queries": "^0.1.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",

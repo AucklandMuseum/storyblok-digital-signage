@@ -1,7 +1,7 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-import DigitalSignage from "../../layouts/DigitalSignage.astro";
+import DigitalSignage from "../../../layouts/DigitalSignage.astro";
 
 export const prerender = true;
 
@@ -9,8 +9,8 @@ export async function getStaticPaths() {
   const sbApi = useStoryblokApi();
 
   const { data } = await sbApi.get("cdn/stories/", {
-    starts_with: "digital-signage",
-    content_type: "screenLayout",
+    starts_with: "digital-signage/",
+    content_type: "signageAlias",
     version: "draft"
   });
 
@@ -19,18 +19,26 @@ export async function getStaticPaths() {
 
   return stories.map((story:any) => {
     return {
-      params: { slug: story.full_slug.replace("digital-signage/","") },
+      params: { slug: story.full_slug.replace("digital-signage/live/","") },
     };
   });
 }
 
 const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
-const { data } = await sbApi.get(`cdn/stories/digital-signage/${slug}`, {
+const { data } = await sbApi.get(`cdn/stories/digital-signage/live/${slug}`, {
   version: "draft",
 });
 
-const story = data.story;
+const alias = data.story;
+
+const lookupData = await sbApi.get(`cdn/stories/${alias.content.sourceUrl}`, {
+  version: "draft",
+  find_by: 'uuid'
+});
+
+const story = lookupData.data.story;
+
 ---
 <DigitalSignage>
   <StoryblokComponent blok={story.content} />

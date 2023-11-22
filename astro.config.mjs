@@ -9,8 +9,6 @@ import node from "@astrojs/node";
 
 const { STORYBLOK_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
-console.log(STORYBLOK_TOKEN)
-
 // https://astro.build/config
 export default defineConfig({
   server: {
@@ -28,7 +26,10 @@ export default defineConfig({
       region: 'us'
     },
     components: {
+      //content types
       screenLayout: 'components/storyblok/contentTypes/ScreenLayout',
+      signageAlias: 'components/storyblok/contentTypes/SignageAlias',
+      //widgets
       panel: 'components/storyblok/widgets/Panel',
       sharedPanel: 'components/storyblok/widgets/SharedPanel',
       whatsOnPromo: 'components/storyblok/widgets/WhatsOnPromo',
