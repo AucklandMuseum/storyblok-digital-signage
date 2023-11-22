@@ -15,9 +15,10 @@ const borderColor = blok.borderColour.color
   : "#000000";
 const borderWidth = blok.borderWidth ? blok.borderWidth : "none";
 
+const orientation = blok.orientation ? blok.orientation : "H";
 const resolution = blok.resolution ? blok.resolution : "FHD";
-const screenWidth = Functions.ResolutionWidth(resolution, blok.orientation);
-const screenHeight = Functions.ResolutionHeight(resolution, blok.orientation);
+const screenWidth = Functions.ResolutionWidth(resolution, orientation);
+const screenHeight = Functions.ResolutionHeight(resolution, orientation);
 const blokWidth = screenWidth * (blok.widthNumber ? blok.widthNumber : 1);
 const blokHeight = screenHeight * (blok.heightNumber ? blok.heightNumber : 1);
 ---
@@ -28,7 +29,7 @@ class:list={["borderWidth" + borderWidth]}
 >
   {
     blok.content?.map((blok: any) => {
-      blok["orientation"] = blok.orientation;
+      blok["orientation"] = orientation;
       blok["parentWidth"] = blokWidth;
       blok["parentHeight"] = blokHeight;
       return <StoryblokComponent blok={blok} />

@@ -4,8 +4,12 @@ import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import vue from "@astrojs/vue";
 import compressor from "astro-compressor";
-
+import { loadEnv } from "vite";
 import node from "@astrojs/node";
+
+const { STORYBLOK_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+
+console.log(STORYBLOK_TOKEN)
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,8 +23,7 @@ export default defineConfig({
   //base: 'auckland-museum',
   trailingSlash: 'never',
   integrations: [storyblok({
-    //accessToken: env.STORYBLOK_TOKEN,
-    accessToken: 'p3nWauZqXhuE8lNTLndLHgtt',
+    accessToken: STORYBLOK_TOKEN,
     apiOptions: {
       region: 'us'
     },

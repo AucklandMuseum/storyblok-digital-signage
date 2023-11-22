@@ -8,10 +8,15 @@ const textColor = blok.textColour.color ? blok.textColour.color : "#FFFFFF";
 const backgroundColor = blok.backgroundColour.color
   ? blok.backgroundColour.color
   : "#000000";
+  
+const blokWidth = blok.parentWidth ? blok.parentWidth : 1920;
+const blokHeight = blok.parentHeight ? blok.parentHeight : 1080;
+
+const imageSize = Math.max(blokWidth,blokHeight)
 
 const renderedRichText = renderRichText(blok.description)
 
-const optimizedBackground = await getImage({src: blok.image.filename, width:1000, height:1000})
+const optimizedBackground = await getImage({src: blok.image.filename, width:imageSize, height:imageSize})
 ---
 
 <div {...storyblokEditable(blok)}
