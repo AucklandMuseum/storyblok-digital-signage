@@ -2,7 +2,7 @@
 import { storyblokEditable } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
-import * as DigitalSignage from 'functions/DigitalSignage.ts'
+import * as Functions from 'lib/functions.ts'
 
 const { blok } = Astro.props;
 
@@ -12,8 +12,8 @@ const backgroundColor = blok.backgroundColour.color
   : "#000000";
 
 const resolution = blok.resolution ? blok.resolution : "FHD";
-const screenWidth = DigitalSignage.ResolutionWidth(resolution, blok.orientation);
-const screenHeight = DigitalSignage.ResolutionHeight(resolution, blok.orientation);
+const screenWidth = Functions.ResolutionWidth(resolution, blok.orientation);
+const screenHeight = Functions.ResolutionHeight(resolution, blok.orientation);
 const blokWidth = screenWidth * (blok.widthNumber ? blok.widthNumber : 1);
 const blokHeight = screenHeight * (blok.heightNumber ? blok.heightNumber : 1);
 ---
@@ -24,6 +24,9 @@ const blokHeight = screenHeight * (blok.heightNumber ? blok.heightNumber : 1);
 ><div class="flex" style=`flex-direction: ${blok.panelFlow};`>
   {
     blok.content?.map((blok: any) => {
+      blok["orientation"] = blok.orientation;
+      blok["parentWidth"] = blokWidth;
+      blok["parentHeight"] = blokHeight;
       return <StoryblokComponent blok={blok} />;
     })
   }</div>

@@ -1,0 +1,47 @@
+---
+import {Image} from "astro:assets"
+
+const { blok } = Astro.props;
+
+const blokWidth = blok.parentWidth ? blok.parentWidth : 1920;
+const blokHeight = blok.parentHeight ? blok.parentHeight : 1080;
+
+const items = blok.items;
+const displayTime = blok.displayTime * 1000;
+const fadeTime = blok.fadeTime * 1000;
+---
+<div
+  id="carouselExampleCrossfade"
+  class="relative w-full h-full" style={`width:${blokWidth}px;height:${blokHeight}px;`}
+  data-te-carousel-init
+  data-te-ride="carousel"
+  data-te-interval={displayTime}>
+
+  <!--Carousel items-->
+  <div class="relative w-full h-full overflow-hidden after:clear-both after:block after:content-['']">
+	{
+		items?.map((item: any, index: number) => {
+		  return <>
+				<div
+					style={`duration-[${fadeTime}ms]`}
+					class="relative float-left -mr-[100%] w-full h-full !transform-none opacity-0 transition-opacity ease-in-out motion-reduce:transition-none"
+					data-te-carousel-fade
+					data-te-carousel-item
+					data-te-carousel-active={index == 0}
+					>
+					<Image src={item.filename} width={blokWidth} height={blokHeight} alt="" class="w-full h-full"></Image>
+				</div>
+			</>
+		})
+	  }
+
+
+
+
+		
+
+
+  </div>
+</div>
+<script src="lib/te/tw-elements.umd.min.js">
+</script>

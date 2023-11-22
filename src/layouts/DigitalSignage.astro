@@ -7,6 +7,29 @@ import "styles/global.css";
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=1920,initial-scale=0.1" />
+
+<link
+	rel="preload"
+	href="/fonts/GothamNarrow-Light.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin="anonymous"
+/>
+<link
+	rel="preload"
+	href="/fonts/GothamNarrow-Book.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin="anonymous"
+/>
+<link
+	rel="preload"
+	href="/fonts/GothamNarrow-Medium.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin="anonymous"
+/>
+
   </head>
 
     <slot />
@@ -195,87 +218,4 @@ import "styles/global.css";
   }
   /*end Timeline */
   
-  /* Slideshow */
-      .ds_slides, .ds_slidecontainer {
-          position: relative;
-          height: 100%;
-          width: 100%;
-          overflow: hidden;
-      }
-  
-          .ds_slidecontainer img {
-              position: absolute;
-              left: 0;
-              top: 0;
-              height: 100%;
-              width: 100%;
-              object-fit: cover;
-              z-index: 1;
-          }
-  
-      .ds_caption {
-          margin: 1.75em;
-          padding: 0.25em;
-          z-index: 10;
-      }
-  
-          .ds_caption p {
-              font-size: .75rem !important;
-              line-height: normal;
-              letter-spacing: normal;
-              margin: 0;
-              padding: 0;
-          }
-  
-      /* Bottom left text */
-      .ds_bottom-left {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-      }
-  
-      /* Top left text */
-      .ds_top-left {
-          position: absolute;
-          top: 0;
-          left: 0;
-      }
-  
-      /* Top right text */
-      .ds_top-right {
-          position: absolute;
-          top: 0;
-          right: 0;
-      }
-  
-      /* Bottom right text */
-      .ds_bottom-right {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-      }
-  
-      .ds-caption-light {
-          color: white !important;
-      }
-  
-      .ds-caption-dark {
-          color: black !important;
-      }
-  
-      .ds-caption-bg-light{
-          background-color: rgba(255,255,255,.15);
-      }
-  
-      .ds-caption-bg-dark{
-          background-color: rgba(0,0,0,.15);
-      }
-  
-      .ds-caption-foltitle p{ }
-      .ds-caption-foldescription p{ }
-      .ds-caption-eoltitle p{ }
-      .ds-caption-eoldescription p{ }
-      .ds-caption-credit p{ }
-      .ds-caption-copyright p{ }
-  /* end Slideshow */
       </style>

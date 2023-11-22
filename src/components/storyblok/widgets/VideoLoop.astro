@@ -2,6 +2,9 @@
 import { storyblokEditable } from "@storyblok/astro";
 
 const { blok } = Astro.props;
+
+const blokWidth = blok.parentWidth ? blok.parentWidth : 1920;
+const blokHeight = blok.parentHeight ? blok.parentHeight : 1080;
 ---
 
 <div class="w-full h-full">

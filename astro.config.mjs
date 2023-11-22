@@ -31,6 +31,7 @@ export default defineConfig({
       whatsOnPromo: 'components/storyblok/widgets/WhatsOnPromo',
       htmlBlock: 'components/storyblok/widgets/HtmlBlock',
       videoLoop: 'components/storyblok/widgets/VideoLoop',
+      imageLoop: 'components/storyblok/widgets/ImageLoop',
     }
   }), tailwind(), react(), vue(), compressor()],
   output: "hybrid",
@@ -42,7 +43,7 @@ export default defineConfig({
       headers: {
         "X-Frame-Options": "ALLOW-FROM https://app.storyblok.com",
         "Content-Security-Policy": "frame-ancestors https://app.storyblok.com;"
-      }
+      },
     }
   },
   adapter: node({
