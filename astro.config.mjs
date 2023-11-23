@@ -7,7 +7,8 @@ import compressor from "astro-compressor";
 import { loadEnv } from "vite";
 import node from "@astrojs/node";
 
-const { STORYBLOK_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const env = loadEnv(process.env.NODE_ENV, process.cwd(), "STORYBLOK");
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,7 +22,8 @@ export default defineConfig({
   //base: 'auckland-museum',
   trailingSlash: 'never',
   integrations: [storyblok({
-    accessToken: STORYBLOK_TOKEN,
+    accessToken: env.STORYBLOK_TOKEN,
+    bridge: env.STORYBLOK_IS_PREVIEW === 'yes',
     apiOptions: {
       region: 'us'
     },
@@ -38,19 +40,28 @@ export default defineConfig({
       imageLoop: 'components/storyblok/widgets/ImageLoop',
     }
   }), tailwind(), react(), vue(), compressor()],
-  output: "hybrid",
-  vite: {
-    server: {
-      host: "localhost",
-      port: 3000,
-      cors: true,
-      headers: {
-        "X-Frame-Options": "ALLOW-FROM https://app.storyblok.com",
-        "Content-Security-Policy": "frame-ancestors https://app.storyblok.com;"
-      },
+  output: env.STORYBLOK_IS_PREVIEW === 'yes' ? 'server' : 'static',
+  ...(env.STORYBLOK_ENV === 'development' && {
+    vite: {
+      server: {
+        host: "localhost",
+        port: 3000,
+        cors: true,
+        headers: {
+          "X-Frame-Options": "ALLOW-FROM https://app.storyblok.com",
+          "Content-Security-Policy": "frame-ancestors https://app.storyblok.com;"
+        },
+      }
     }
-  },
-  adapter: node({
-    mode: "standalone"
-  })
+  }),
+  ...(env.STORYBLOK_ENV === 'development' && {
+    adapter: node({
+      mode: "standalone"
+    })
+  }),
+  ...(env.STORYBLOK_ENV === 'production' && {
+    adapter: node({
+      mode: "netlify"
+    })
+  }),
 });
