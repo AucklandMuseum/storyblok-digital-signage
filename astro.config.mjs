@@ -6,6 +6,7 @@ import vue from "@astrojs/vue";
 import compressor from "astro-compressor";
 import { loadEnv } from "vite";
 import node from "@astrojs/node";
+import netlify from "@astrojs/netlify/functions";
 
 const env = loadEnv(process.env.NODE_ENV, process.cwd(), "STORYBLOK");
 
@@ -60,8 +61,8 @@ export default defineConfig({
     })
   }),
   ...(env.STORYBLOK_ENV === 'production' && {
-    adapter: node({
-      mode: "netlify"
+    adapter: netlify({
+    
     })
   }),
 });
