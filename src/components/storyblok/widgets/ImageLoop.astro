@@ -8,10 +8,10 @@ const blokHeight = blok.parentHeight ? blok.parentHeight : 1080;
 
 const items = blok.items;
 const displayTime = blok.displayTime * 1000;
-const fadeTime = blok.fadeTime * 1000;
+const fadeTime = blok.fadeTime;
 ---
 <div
-  id="carouselExampleCrossfade"
+  id="imageLoop"
   class="relative w-full h-full" style={`width:${blokWidth}px;height:${blokHeight}px;`}
   data-te-carousel-init
   data-te-ride="carousel"
@@ -23,13 +23,22 @@ const fadeTime = blok.fadeTime * 1000;
 		items?.map((item: any, index: number) => {
 		  return <>
 				<div
-					style={`duration-[${fadeTime}ms]`}
-					class="relative float-left -mr-[100%] w-full h-full !transform-none opacity-0 transition-opacity ease-in-out motion-reduce:transition-none"
+					style={`transition-duration:${fadeTime/2}s`}
+					class="relative float-left -mr-[100%] w-full h-full !transform-none opacity-0 transition-opacity motion-reduce:transition-none"
 					data-te-carousel-fade
 					data-te-carousel-item
 					data-te-carousel-active={index == 0}
 					>
 					<Image src={item.filename} width={blokWidth} height={blokHeight} alt="" class="w-full h-full"></Image>
+				</div>
+				<div
+					class="!transition-none relative float-left -mr-[100%] w-full h-full !transform-none opacity-0 transition-opacity motion-reduce:transition-none"
+					data-te-carousel-fade
+					data-te-carousel-item
+					data-te-interval=1
+					>
+					<div class="w-full h-full opacity-0 transition-opacity ease-in-out">
+					</div>
 				</div>
 			</>
 		})
