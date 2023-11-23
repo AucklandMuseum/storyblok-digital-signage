@@ -2,6 +2,7 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import DigitalSignage from "../../../layouts/DigitalSignage.astro";
+import { isPreview } from "lib/isPreview";
 
 export const prerender = true;
 
@@ -11,7 +12,7 @@ export async function getStaticPaths() {
   const { data } = await sbApi.get("cdn/stories/", {
     starts_with: "digital-signage/",
     content_type: "signageAlias",
-    version: "draft"
+    version: isPreview() ? "draft" : "published"
   });
 
   const stories = Object.values(data.stories);
@@ -27,13 +28,13 @@ export async function getStaticPaths() {
 const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
 const { data } = await sbApi.get(`cdn/stories/digital-signage/live/${slug}`, {
-  version: "draft",
+  version: isPreview() ? "draft" : "published"
 });
 
 const alias = data.story;
 
 const lookupData = await sbApi.get(`cdn/stories/${alias.content.sourceUrl}`, {
-  version: "draft",
+  version: isPreview() ? "draft" : "published"
   find_by: 'uuid'
 });
 
