@@ -2,7 +2,7 @@
 import { storyblokEditable } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
-import * as Functions from 'lib/functions.ts'
+import * as ScreenSize from 'utils/ScreenSize'
 
 const { blok } = Astro.props;
 
@@ -13,8 +13,8 @@ const backgroundColor = blok.backgroundColour.color
 
   const orientation = blok.orientation ? blok.orientation : "H";
   const resolution = blok.resolution ? blok.resolution : "FHD";
-const screenWidth = Functions.ResolutionWidth(resolution, orientation);
-const screenHeight = Functions.ResolutionHeight(resolution, orientation);
+const screenWidth = ScreenSize.ResolutionWidth(resolution, orientation);
+const screenHeight = ScreenSize.ResolutionHeight(resolution, orientation);
 const blokWidth = screenWidth * (blok.widthNumber ? blok.widthNumber : 1);
 const blokHeight = screenHeight * (blok.heightNumber ? blok.heightNumber : 1);
 ---

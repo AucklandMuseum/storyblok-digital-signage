@@ -5,13 +5,13 @@
     "paths": {
       "components/*": ["components/*"],
       "layouts/*": ["layouts/*"],
-      "lib/*": ["lib/*"],
+      "utils/*": ["utils/*"],
       "styles/*": ["styles/*"],
       "types/*": ["types/*"],
     },
     "jsx": "preserve",
     "jsxImportSource": "react",
     "allowJs": true,
-    "types": ["vite/client","/"]
+    "types": ["vite/client"]
   }
 }

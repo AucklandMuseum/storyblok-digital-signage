@@ -2,7 +2,7 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import DigitalSignage from "../../../layouts/DigitalSignage.astro";
-import { isPreview } from "lib/isPreview";
+import { isPreview } from "utils/isPreview";
 
 export const prerender = true;
 
@@ -27,15 +27,15 @@ export async function getStaticPaths() {
 
 const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
-const { data } = await sbApi.get(`cdn/stories/digital-signage/live/${slug}`, {
-  version: isPreview() ? "draft" : "published"
+const { data } = await sbApi.getStory(`/digital-signage/live/${slug}`, {
+  version: isPreview() ? "draft" : "published",
 });
 
 const alias = data.story;
 
-const lookupData = await sbApi.get(`cdn/stories/${alias.content.sourceUrl}`, {
+const lookupData = await sbApi.getStory(alias.content.sourceUrl, {
   find_by: 'uuid',
-  version: isPreview() ? "draft" : "published"
+  version: isPreview() ? "draft" : "published",
 });
 
 const story = lookupData.data.story;
