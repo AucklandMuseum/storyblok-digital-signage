@@ -11,12 +11,10 @@ export async function getStaticPaths() {
 
   const { data } = await sbApi.get("cdn/stories/", {
     starts_with: "digital-signage",
-    content_type: "screenLayout",
     version: isPreview() ? "draft" : "published"
   });
 
   const stories = Object.values(data.stories);
-
 
   return stories.map((story:any) => {
     return {
@@ -27,7 +25,7 @@ export async function getStaticPaths() {
 
 const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
-const { data } = await sbApi.getStory(`/digital-signage/${slug}`, {
+const { data } = await sbApi.get(`cdn/stories/digital-signage/${slug}`, {
   version: isPreview() ? "draft" : "published",
 });
 

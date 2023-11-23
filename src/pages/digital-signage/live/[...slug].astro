@@ -27,13 +27,13 @@ export async function getStaticPaths() {
 
 const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
-const { data } = await sbApi.getStory(`/digital-signage/live/${slug}`, {
+const { data } = await sbApi.get(`cdn/stories/digital-signage/live/${slug}`, {
   version: isPreview() ? "draft" : "published",
 });
 
 const alias = data.story;
 
-const lookupData = await sbApi.getStory(alias.content.sourceUrl, {
+const lookupData = await sbApi.get(`cdn/stories/${alias.content.sourceUrl}`, {
   find_by: 'uuid',
   version: isPreview() ? "draft" : "published",
 });
