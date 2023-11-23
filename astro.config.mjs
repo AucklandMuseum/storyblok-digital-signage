@@ -59,7 +59,7 @@ export default defineConfig({
       mode: "standalone"
     })
   }),
-  ...(env.STORYBLOK_ENV === 'Production' && {
+  ...(env.STORYBLOK_ENV === 'production' && {
     adapter: node({
       mode: "netlify"
     })
