@@ -3,8 +3,9 @@ import {Image} from "astro:assets"
 
 const { blok } = Astro.props;
 
-const blokWidth = blok.parentWidth ? blok.parentWidth : 1920;
-const blokHeight = blok.parentHeight ? blok.parentHeight : 1080;
+const scale = blok?.scale ? blok.scale : 1;
+const blokWidth = (blok.parentWidth ? blok.parentWidth : 1920) / scale;
+const blokHeight = (blok.parentHeight ? blok.parentHeight : 1080) / scale;
 
 const items = blok.items;
 const displayTime = blok.displayTime * 1000;

@@ -30,7 +30,9 @@ const { data } = await sbApi.get(`cdn/stories/digital-signage/${slug}`, {
 });
 
 const story = data.story;
+const blok = story.content;
+const scale = blok.scale ? blok.scale : 1;
 ---
-<DigitalSignage>
-  <StoryblokComponent blok={story.content} />
+<DigitalSignage scale={scale}>
+  <StoryblokComponent blok={blok} />
 </DigitalSignage>

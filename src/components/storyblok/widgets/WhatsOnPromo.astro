@@ -1,22 +1,22 @@
 ---
-import { renderRichText, storyblokEditable } from '@storyblok/astro'
-import { getImage } from 'astro:assets';
+  import { renderRichText, storyblokEditable } from '@storyblok/astro'
+  import { getImage } from 'astro:assets';
 
-const { blok } = Astro.props
+  const { blok } = Astro.props
 
-const textColor = blok.textColour.color ? blok.textColour.color : "#FFFFFF";
-const backgroundColor = blok.backgroundColour.color
+  const textColor = blok.textColour?.color ? blok.textColour.color : "#FFFFFF";
+  const backgroundColor = blok.backgroundColour?.color
   ? blok.backgroundColour.color
   : "#000000";
-  
-const blokWidth = blok.parentWidth ? blok.parentWidth : 1920;
-const blokHeight = blok.parentHeight ? blok.parentHeight : 1080;
 
-const imageSize = Math.max(blokWidth,blokHeight)
+  const blokWidth = (blok.parentWidth ? blok.parentWidth : 1920);
+  const blokHeight = (blok.parentHeight ? blok.parentHeight : 1080);
 
-const renderedRichText = renderRichText(blok.description)
+  const imageSize = Math.max(blokWidth,blokHeight)
 
-const optimizedBackground = await getImage({src: blok.image.filename, width:imageSize, height:imageSize})
+  const renderedRichText = renderRichText(blok.description)
+
+  const optimizedBackground = await getImage({src: blok.image.filename, width:imageSize, height:imageSize})
 ---
 
 <div {...storyblokEditable(blok)}

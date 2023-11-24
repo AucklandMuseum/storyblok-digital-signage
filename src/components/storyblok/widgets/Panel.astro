@@ -1,7 +1,6 @@
 ---
 import { storyblokEditable } from '@storyblok/astro'
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
-
 import * as ScreenSize from 'utils/ScreenSize'
 
 const { blok } = Astro.props
@@ -15,20 +14,22 @@ const borderColor = blok.borderColour.color
   : "#000000";
 const borderWidth = blok.borderWidth ? blok.borderWidth : "none";
 
+const scale = blok?.scale ? blok.scale : 1;
 const orientation = blok.orientation ? blok.orientation : "H";
 const resolution = blok.resolution ? blok.resolution : "FHD";
 const screenWidth = ScreenSize.ResolutionWidth(resolution, orientation);
 const screenHeight = ScreenSize.ResolutionHeight(resolution, orientation);
-const blokWidth = screenWidth * (blok.widthNumber ? blok.widthNumber : 1);
-const blokHeight = screenHeight * (blok.heightNumber ? blok.heightNumber : 1);
+const blokWidth = (screenWidth * (blok.widthNumber ? blok.widthNumber : 1)) / scale;
+const blokHeight = (screenHeight * (blok.heightNumber ? blok.heightNumber : 1)) / scale;
 ---
 
 <div {...storyblokEditable(blok)}
-style={`color:${textColor};background-color:${backgroundColor};outline-style:solid;outline-color:${borderColor};width:${blokWidth}px;height:${blokHeight}px;display:flex;flex-direction: ${blok.panelFlow};`}
+style={`color:${textColor};background-color:${backgroundColor};outline-style:solid;outline-color:${borderColor};width:${blokWidth}px;height:${blokHeight}px;display:flex;flex-direction: ${blok.panelFlow};overflow:hidden;`}
 class:list={["borderWidth" + borderWidth]}
 >
   {
     blok.content?.map((blok: any) => {
+      blok["scale"] = scale;
       blok["orientation"] = orientation;
       blok["parentWidth"] = blokWidth;
       blok["parentHeight"] = blokHeight;

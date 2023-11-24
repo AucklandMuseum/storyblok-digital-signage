@@ -1,9 +1,10 @@
 ---
 import "styles/global.css";
+const {scale} = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style={`font-size: ${32/scale}px;`}>
   <head>
     <meta charset="utf-8" />
 
@@ -36,10 +37,6 @@ import "styles/global.css";
   
 </html>
 <style is:global>
-  html {
-    font-size: 32px; 
-  }
-
   h1 {
     font-size: 9rem;
     font-weight: 900;
