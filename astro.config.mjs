@@ -37,6 +37,7 @@ export default defineConfig({
       sharedPanel: 'components/storyblok/widgets/SharedPanel',
       whatsOnPromo: 'components/storyblok/widgets/WhatsOnPromo',
       htmlBlock: 'components/storyblok/widgets/HtmlBlock',
+      htmlBlockDS: 'components/storyblok/widgets/HtmlBlock',
       videoLoop: 'components/storyblok/widgets/VideoLoop',
       imageLoop: 'components/storyblok/widgets/ImageLoop',
     }

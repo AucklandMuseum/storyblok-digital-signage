@@ -1,103 +1,79 @@
 ---
 import "styles/global.css";
-const {scale} = Astro.props;
+const { scale } = Astro.props;
 ---
 
-<!DOCTYPE html>
-<html lang="en" style={`font-size: ${32/scale}px;`}>
+<!doctype html>
+<html lang="en" style={`font-size: ${32 / scale}px;`}>
   <head>
     <meta charset="utf-8" />
 
-<link
-	rel="preload"
-	href="/fonts/GothamNarrow-Light.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin="anonymous"
-/>
-<link
-	rel="preload"
-	href="/fonts/GothamNarrow-Book.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin="anonymous"
-/>
-<link
-	rel="preload"
-	href="/fonts/GothamNarrow-Medium.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin="anonymous"
-/>
-
+    <link
+      rel="preload"
+      href="/fonts/GothamNarrow-Light.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/GothamNarrow-Book.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/GothamNarrow-Medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
   </head>
 
-    <slot />
+  <slot />
 
-  
+  <style is:global>
+    h1 {
+      @apply text-[9rem] font-black leading-[8rem] tracking-normal uppercase mb-4;
+    }
+
+    h2 {
+      @apply text-[9rem] font-thin leading-[8rem] tracking-normal uppercase mb-4;
+    }
+
+    h3 {
+      @apply text-4xl font-black leading-10 tracking-wide uppercase mb-4;
+    }
+
+    h4 {
+      @apply text-2xl font-black leading-8 tracking-wide uppercase mb-4 border-b-[0.1rem];
+    }
+
+    h5 {
+      @apply text-2xl font-black leading-8 tracking-wide uppercase;
+    }
+    p {
+      @apply font-normal text-[2rem] leading-9 tracking-normal;
+    }
+    p.contentsmall,
+    span.contentsmall {
+      @apply !text-2xl !leading-7;
+    }
+
+    p.contenttiny,
+    span.contenttiny {
+      @apply !text-xl;
+    }
+
+    br {
+      @apply leading-4;
+    }
+
+    strong {
+      @apply font-normal;
+    }
+  </style>
+
+
 </html>
-<style is:global>
-  h1 {
-    font-size: 9rem;
-    font-weight: 900;
-    line-height: 8rem;
-    text-transform: uppercase;
-  }
-  
-  h2 {
-    font-size: 9rem;
-    font-weight: 100;
-    line-height: 8rem;
-    text-transform: uppercase;
-  }
-  
-  h3 {
-    font-size: 2.2rem;
-    font-weight: 900;
-    letter-spacing: 0.1rem;
-    line-height: 2rem;
-    text-transform: uppercase;
-  }
-  
-  h4 {
-    font-size: 1.4rem;
-    font-weight: 900;
-    line-height: 2rem;
-    text-transform: uppercase;
-    border-bottom: .1rem solid rgba(255, 255, 255, 0.5);
-    margin-bottom: 1rem;
-  }
-  
-  h5 {
-    font-size: 1.4rem;
-    font-weight: 900;
-    line-height: 2rem;
-    text-transform: uppercase;
-  }
-  
-  p {
-    font-size: 2rem;
-    font-weight: 400;
-    letter-spacing: 0.05rem;
-    line-height: 2.2rem;
-    margin-bottom: 0.8rem;
-  }
-  
-  p.contentsmall,
-  span.contentsmall{
-    font-size: 1.5rem;
-    line-height: 1.7rem;
-  }
-  
-  p.contenttiny,
-  span.contenttiny{
-    font-size: 1.2rem;
-  }
-  
-  br {line-height: 1rem}
-  
-  strong {
-    font-weight: 400;
-  }
-
-      </style>

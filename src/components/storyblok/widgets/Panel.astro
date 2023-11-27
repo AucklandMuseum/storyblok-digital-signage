@@ -1,15 +1,15 @@
 ---
-import { storyblokEditable } from '@storyblok/astro'
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
-import * as ScreenSize from 'utils/ScreenSize'
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import * as ScreenSize from "utils/ScreenSize";
 
-const { blok } = Astro.props
+const { blok } = Astro.props;
 
-const textColor = blok.textColour.color ? blok.textColour.color : "#FFFFFF";
-const backgroundColor = blok.backgroundColour.color
+const textColor = blok.textColour?.color ? blok.textColour.color : "#FFFFFF";
+const backgroundColor = blok.backgroundColour?.color
   ? blok.backgroundColour.color
   : "#000000";
-const borderColor = blok.borderColour.color
+const borderColor = blok.borderColour?.color
   ? blok.borderColour.color
   : "#000000";
 const borderWidth = blok.borderWidth ? blok.borderWidth : "none";
@@ -19,13 +19,16 @@ const orientation = blok.orientation ? blok.orientation : "H";
 const resolution = blok.resolution ? blok.resolution : "FHD";
 const screenWidth = ScreenSize.ResolutionWidth(resolution, orientation);
 const screenHeight = ScreenSize.ResolutionHeight(resolution, orientation);
-const blokWidth = (screenWidth * (blok.widthNumber ? blok.widthNumber : 1)) / scale;
-const blokHeight = (screenHeight * (blok.heightNumber ? blok.heightNumber : 1)) / scale;
+const blokWidth =
+  (screenWidth * (blok.widthNumber ? blok.widthNumber : 1)) / scale;
+const blokHeight =
+  (screenHeight * (blok.heightNumber ? blok.heightNumber : 1)) / scale;
 ---
 
-<div {...storyblokEditable(blok)}
-style={`color:${textColor};background-color:${backgroundColor};outline-style:solid;outline-color:${borderColor};width:${blokWidth}px;height:${blokHeight}px;display:flex;flex-direction: ${blok.panelFlow};overflow:hidden;`}
-class:list={["borderWidth" + borderWidth]}
+<div
+  {...storyblokEditable(blok)}
+  style={`color:${textColor};background-color:${backgroundColor};outline-style:solid;outline-color:${borderColor};width:${blokWidth}px;height:${blokHeight}px;display:flex;flex-direction: ${blok.panelFlow};overflow:hidden;`}
+  class:list={["borderWidth" + borderWidth]}
 >
   {
     blok.content?.map((blok: any) => {
@@ -33,19 +36,19 @@ class:list={["borderWidth" + borderWidth]}
       blok["orientation"] = orientation;
       blok["parentWidth"] = blokWidth;
       blok["parentHeight"] = blokHeight;
-      return <StoryblokComponent blok={blok} />
+      return <StoryblokComponent blok={blok} />;
     })
   }
 </div>
 
 <style>
-  .borderWidthnone  {
-    @apply outline-none
+  .borderWidthnone {
+    @apply outline-0 outline-offset-0;
   }
-  .borderWidthsmall  {
-    @apply outline-offset-[-2em] outline-[2em] p-[2em]
+  .borderWidthsmall {
+    @apply outline-offset-[-2em] outline-[2em] p-[2em];
   }
-  .borderWidthlarge  {
-    @apply outline-offset-[-5em] outline-[5em] p-[5em]
+  .borderWidthlarge {
+    @apply outline-offset-[-5em] outline-[5em] p-[5em];
   }
 </style>
