@@ -1,10 +1,151 @@
 ---
-import { storyblokEditable } from "@storyblok/astro";
+import { renderRichText } from "@storyblok/astro";
 
 const { blok } = Astro.props;
 
+const { videoAssets } = blok;
+
+const media:any = [];
+const hasCaption:any =  []
+const folTitle:any =  []
+const eolTitle:any =  []
+const folDescription:any =  []
+const eolDescription:any =  []
+const copyright:any =  []
+const credit:any =  []
+const position:any =  []
+const color:any =  []
+const bgcolor:any =  []
+
+videoAssets.map((source:any, index:number) => {
+	media[index] =  source.videoURL;
+	hasCaption[index] = source?.folTitle || source?.eolTitle || source?.folDescription || source?.eolDescription
+	folTitle[index] = source.folTitle ? renderRichText(source.folTitle) : ""
+	eolTitle[index] = source.eolTitle ? renderRichText(source.eolTitle) : ""
+	folDescription[index] = source.folDescription ? renderRichText(source.folDescription) : ""
+	eolDescription[index] = source.eolDescription ? renderRichText(source.eolDescription) : ""
+	copyright[index] = source.copyright
+	credit[index] = source.credit
+	position[index] = source.position
+	color[index] = source.textColour
+	bgcolor[index] = source.backgroundColour
+});
+
 ---
 
-<div class="w-full h-full">
-	<video class="m-0 w-full" loop id="playerVideo" pcmaudio="none" autoplay hwz="off" viewmode="scale-to-fit" muted src="https://akmprod.blob.core.windows.net/cmsstorage/aucklandmuseum/video/THW-Short.mp4"></video>
+<div class="w-full h-full overflow-hidden relative">
+<video class="m-0 w-full" id="playerVideo" pcmaudio="none" autoplay hwz="off" viewmode="scale-to-fit" muted></video>
+<div id="pnlCaption">
+<div id="ltlCaption"></div>
 </div>
+</div>
+
+<script define:vars={{ media,hasCaption,folTitle,eolTitle,folDescription,eolDescription,copyright,credit,position,color,bgcolor }}>
+
+	var mediaIndex = media.length;
+	var playerVideo = document.getElementById("playerVideo");
+	var captionPanel = document.getElementById("pnlCaption");
+	var captionContent = document.getElementById("ltlCaption");
+
+	function PlayNext() {
+		mediaIndex++;
+		if (mediaIndex >= media.length) {
+			mediaIndex = 0;
+		}
+		playerVideo.src = media[mediaIndex];
+		playerVideo.style.visibility = "hidden";
+		playerVideo.load();
+		if(hasCaption[mediaIndex]){
+			captionPanel.classList.remove()
+			captionPanel.classList.add("ds_caption")
+			if(position[mediaIndex]) captionPanel.classList.add(position[mediaIndex])
+			if(color[mediaIndex]) captionPanel.classList.add(color[mediaIndex])
+			if(bgcolor[mediaIndex]) captionPanel.classList.add(bgcolor[mediaIndex])
+			captionContent.innerHTML = "<span class='ds-caption-foltitle'>" + folTitle[mediaIndex] + "</span><span class='ds-caption-foldescription'>" + folDescription[mediaIndex] + "</span><span class='ds-caption-eoltitle'>" + eolTitle[mediaIndex] + "</span><span class='ds-caption-eoldescription'>" + eolDescription[mediaIndex] + "</span><span class='ds-caption-credit'>" + credit[mediaIndex] + "</span><span class='ds-caption-copyright'>" + copyright[mediaIndex] + "</span>";
+		}
+	}
+
+	function PlayNow()
+	{
+		playerVideo.style.visibility = "inherit";
+		playerVideo.play();
+	}
+
+	function LoadPlayer()
+	{
+		playerVideo.addEventListener("ended", PlayNext);
+		playerVideo.addEventListener("canplay", PlayNow);
+		PlayNext();
+	}
+
+	if(mediaIndex === 1) {
+		playerVideo.loop = "loop";
+		playerVideo.autoplay = "autoplay"
+		playerVideo.src = media[0];
+		if(hasCaption[0]){
+			captionPanel.classList.remove()
+			captionPanel.classList.add("ds_caption")
+			if(position[0]) captionPanel.classList.add(position[0])
+			if(color[0]) captionPanel.classList.add(color[0])
+			if(bgcolor[0]) captionPanel.classList.add(bgcolor[0])
+			captionContent.innerHTML = "<span class='ds-caption-foltitle'>" + folTitle[0] + "</span><span class='ds-caption-foldescription'>" + folDescription[0] + "</span><span class='ds-caption-eoltitle'>" + eolTitle[0] + "</span><span class='ds-caption-eoldescription'>" + eolDescription[0] + "</span><span class='ds-caption-credit'>" + credit[0] + "</span><span class='ds-caption-copyright'>" + copyright[0] + "</span>";
+		}
+	}else{
+		LoadPlayer(); 
+	}
+</script>
+
+<style>
+    .ds_caption {
+        @apply m-7 p-1 z-10
+    }
+
+        .ds_caption p {
+			@apply !text-xs m-0 p-0
+        }
+
+    /* Bottom left text */
+    .ds_bottom-left {
+		@apply absolute bottom-0 left-0
+    }
+
+    /* Top left text */
+    .ds_top-left {
+		@apply absolute top-0 left-0
+    }
+
+    /* Top right text */
+    .ds_top-right {
+		@apply absolute top-0 right-0
+    }
+
+    /* Bottom right text */
+    .ds_bottom-right {
+		@apply absolute bottom-0 right-0
+
+    }
+
+    .ds-caption-light {
+		@apply !text-white
+    }
+
+    .ds-caption-dark {
+		@apply !text-black
+    }
+
+    .ds-caption-bg-light{
+		@apply !bg-[rgba(255,255,255,.15)]
+    }
+
+    .ds-caption-bg-dark{
+		@apply !bg-[rgba(0,0,0,.15)]
+    }
+
+    .ds-caption-foltitle p{ }
+    .ds-caption-foldescription p{ }
+    .ds-caption-eoltitle p{ }
+    .ds-caption-eoldescription p{ }
+    .ds-caption-credit p{ }
+    .ds-caption-copyright p{ }
+/* end Slideshow */
+</style>

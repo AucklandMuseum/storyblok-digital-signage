@@ -31,16 +31,22 @@ const fadeTime = blok.fadeTime;
 					data-te-carousel-active={index == 0}
 					>
 					<Image src={item.filename} width={blokWidth} height={blokHeight} alt="" class="w-full h-full"></Image>
-				</div>
-				<div
-					class="!transition-none relative float-left -mr-[100%] w-full h-full !transform-none opacity-0 transition-opacity motion-reduce:transition-none"
-					data-te-carousel-fade
-					data-te-carousel-item
-					data-te-interval=1
-					>
-					<div class="w-full h-full opacity-0 transition-opacity ease-in-out">
+					<div id="pnlCaption">
+						<div id="ltlCaption"></div>
 					</div>
-				</div>
+				</div> 
+				{
+					items.count > 1 && 
+					<div
+						class="!transition-none relative float-left -mr-[100%] w-full h-full !transform-none opacity-0 transition-opacity motion-reduce:transition-none"
+						data-te-carousel-fade
+						data-te-carousel-item
+						data-te-interval=1
+						>
+						<div class="w-full h-full opacity-0 transition-opacity ease-in-out">
+						</div>
+					</div>
+				}
 			</>
 		})
 	  }
