@@ -14,7 +14,7 @@
 
   const imageSize = Math.max(blokWidth,blokHeight)
 
-  const renderedRichText = renderRichText(blok.description)
+  const renderedRichText = renderRichText(blok?.description)
 
   const optimizedBackground = await getImage({src: blok.image.filename, width:imageSize, height:imageSize})
 ---
@@ -27,16 +27,16 @@ class:list={["w-full h-full flex justify-items-stretch",`promo-${blok.size}`]}
   </div>
   <div class:list={["flex grow flex-col self-end p-[2.7em] justify-items-stretch",`banner-${blok.size}` ]}>
       
-    <div class="grow self-start h-max w-full">
-        <h3 class="mb-4" set:html={blok.title}></h3>
-        <div set:html={renderedRichText}></div>
+    <div class="grow self-start h-max w-full mb-6">
+        <h3 class="mb-8" set:html={blok?.title}></h3>
+        <div  set:html={renderedRichText}></div>
     </div>
     <div class="grow-0 self-end w-full">
-      <h5>FREE WITH MUSEUM ENTRY</h5>
+      <h5 class="p-0 border-b-[0.1rem] uppercase" style=`border-color: ${textColor};`>{blok?.tnewTitle}</h5>
       <ul>
         
       </ul>
-      <h5>TE MARAE Ā​TEA MĀORI COURT</h5>
+      <h5 class="uppercase">{blok?.manualTiming}</h5>
     </div>
  
   </div>
