@@ -1,0 +1,11 @@
+---
+import { renderRichText, storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+const renderedRichText = renderRichText(blok.content);
+---
+
+<div
+  {...storyblokEditable(blok)}
+  set:html={renderedRichText.replace(/\n/g, `</br>`)}
+/>

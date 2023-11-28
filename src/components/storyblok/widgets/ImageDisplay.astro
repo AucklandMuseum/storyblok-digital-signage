@@ -1,0 +1,18 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import { getImage } from "astro:assets";
+
+const { blok } = Astro.props;
+
+const scale = blok?.scale ? blok.scale : 1;
+
+const optimizedImage = await getImage({
+  src: blok.asset.filename,
+  width: blok.width / scale,
+  height: blok.height / scale,
+});
+---
+
+<div {...storyblokEditable(blok)}>
+  <img src={optimizedImage.src} class="w-full h-full" >
+</div>
