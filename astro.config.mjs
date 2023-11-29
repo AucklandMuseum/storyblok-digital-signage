@@ -36,7 +36,7 @@ export default defineConfig({
       dsPanel: 'components/storyblok/widgets/Panel',
       dsSharedPanel: 'components/storyblok/widgets/SharedPanel',
       dsWhatsOnPromo: 'components/storyblok/widgets/WhatsOnPromo',
-      dsImageDS: 'components/storyblok/widgets/ImageDisplay',
+      dsImage: 'components/storyblok/widgets/ImageDisplay',
       dsCopyBlock: 'components/storyblok/widgets/CopyBlock',
       dsHtmlBlock: 'components/storyblok/widgets/HtmlBlock',
       dsVideoLoop: 'components/storyblok/widgets/VideoLoop',
