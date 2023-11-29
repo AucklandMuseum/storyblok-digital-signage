@@ -38,7 +38,7 @@ export default defineConfig({
       dsWhatsOnPromo: 'components/storyblok/widgets/WhatsOnPromo',
       dsImageDS: 'components/storyblok/widgets/ImageDisplay',
       dsCopyBlock: 'components/storyblok/widgets/CopyBlock',
-      dshtmlBlock: 'components/storyblok/widgets/HtmlBlock',
+      dsHtmlBlock: 'components/storyblok/widgets/HtmlBlock',
       dsVideoLoop: 'components/storyblok/widgets/VideoLoop',
       dsImageLoop: 'components/storyblok/widgets/ImageLoop',
     }
