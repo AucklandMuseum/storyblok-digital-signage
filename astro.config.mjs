@@ -30,18 +30,17 @@ export default defineConfig({
     },
     components: {
       //content types
-      screenLayout: 'components/storyblok/contentTypes/ScreenLayout',
-      signageAlias: 'components/storyblok/contentTypes/SignageAlias',
+      dsScreenLayout: 'components/storyblok/contentTypes/ScreenLayout',
+      dsSignageAlias: 'components/storyblok/contentTypes/SignageAlias',
       //widgets
-      panel: 'components/storyblok/widgets/Panel',
-      sharedPanel: 'components/storyblok/widgets/SharedPanel',
-      whatsOnPromo: 'components/storyblok/widgets/WhatsOnPromo',
-      imageDS: 'components/storyblok/widgets/ImageDisplay',
-      copyBlockDS: 'components/storyblok/widgets/CopyBlock',
-      htmlBlock: 'components/storyblok/widgets/HtmlBlock',
-      htmlBlockDS: 'components/storyblok/widgets/HtmlBlock',
-      videoLoop: 'components/storyblok/widgets/VideoLoop',
-      imageLoop: 'components/storyblok/widgets/ImageLoop',
+      dsPanel: 'components/storyblok/widgets/Panel',
+      dsSharedPanel: 'components/storyblok/widgets/SharedPanel',
+      dsWhatsOnPromo: 'components/storyblok/widgets/WhatsOnPromo',
+      dsImageDS: 'components/storyblok/widgets/ImageDisplay',
+      dsCopyBlock: 'components/storyblok/widgets/CopyBlock',
+      dshtmlBlock: 'components/storyblok/widgets/HtmlBlock',
+      dsVideoLoop: 'components/storyblok/widgets/VideoLoop',
+      dsImageLoop: 'components/storyblok/widgets/ImageLoop',
     }
   }), tailwind(), react(), vue(), compressor()],
   output: env.STORYBLOK_IS_PREVIEW === 'yes' ? 'server' : 'static',
