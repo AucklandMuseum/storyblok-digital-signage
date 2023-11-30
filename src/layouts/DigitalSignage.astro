@@ -7,7 +7,11 @@ const { scale } = Astro.props;
 <html lang="en" style={`font-size: ${32 / scale}px;`}>
   <head>
     <meta charset="utf-8" />
-
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
       rel="preload"
       href="/fonts/GothamNarrow-Light.woff2"
