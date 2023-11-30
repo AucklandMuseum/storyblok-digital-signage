@@ -57,12 +57,12 @@ export default defineConfig({
       }
     }
   }),
-  ...(env.STORYBLOK_ENV === 'development' && {
+  ...(env.STORYBLOK_ENV === 'development' && env.STORYBLOK_IS_PREVIEW === 'yes' && {
     adapter: node({
       mode: "standalone"
     })
   }),
-  ...(env.STORYBLOK_ENV === 'production' && {
+  ...(env.STORYBLOK_ENV === 'production' && env.STORYBLOK_IS_PREVIEW === 'yes' && {
     adapter: netlify({
     
     })
