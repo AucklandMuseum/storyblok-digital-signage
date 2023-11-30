@@ -42,7 +42,7 @@ export default defineConfig({
       dsVideoLoop: 'components/storyblok/widgets/VideoLoop',
       dsImageLoop: 'components/storyblok/widgets/ImageLoop',
     }
-  }), tailwind(), react(), vue(), compressor()],
+  }), tailwind(), react(), vue()],
   output: env.STORYBLOK_IS_PREVIEW === 'yes' ? 'server' : 'static',
   ...(env.STORYBLOK_ENV === 'development' && {
     vite: {

@@ -4,8 +4,6 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import DigitalSignage from "../../../layouts/DigitalSignage.astro";
 import { isPreview } from "utils/isPreview";
 
-export const prerender = true;
-
 export async function getStaticPaths() {
   const sbApi = useStoryblokApi();
 
