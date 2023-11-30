@@ -4,20 +4,22 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import DigitalSignage from "../../../layouts/DigitalSignage.astro";
 import { isPreview } from "utils/isPreview";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const sbApi = useStoryblokApi();
 
   const { data } = await sbApi.get("cdn/stories/", {
     starts_with: "digital-signage/",
-    content_type: "signageAlias",
-    version: isPreview() ? "draft" : "published"
+    content_type: "dsSignageAlias",
+    version: isPreview() ? "draft" : "published",
   });
 
   const stories = Object.values(data.stories);
 
-  return stories.map((story:any) => {
+  return stories.map((story: any) => {
     return {
-      params: { slug: story.full_slug.replace("digital-signage/live/","") },
+      params: { slug: story.full_slug.replace("digital-signage/live/", "") },
     };
   });
 }
@@ -31,7 +33,7 @@ const { data } = await sbApi.get(`cdn/stories/digital-signage/live/${slug}`, {
 const alias = data.story;
 
 const lookupData = await sbApi.get(`cdn/stories/${alias.content.sourceUrl}`, {
-  find_by: 'uuid',
+  find_by: "uuid",
   version: isPreview() ? "draft" : "published",
 });
 
@@ -39,6 +41,7 @@ const story = lookupData.data.story;
 const blok = story.content;
 const scale = blok.scale ? blok.scale : 1;
 ---
+
 <DigitalSignage scale={scale}>
   <StoryblokComponent blok={blok} />
 </DigitalSignage>

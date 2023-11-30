@@ -4,23 +4,24 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import DigitalSignage from "../../layouts/DigitalSignage.astro";
 import { isPreview } from "utils/isPreview.js";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
-  // const sbApi = useStoryblokApi();
+  const sbApi = useStoryblokApi();
 
-  // const { data } = await sbApi.get("cdn/stories/", {
-  //   starts_with: "digital-signage/",
-  //   content_type: "screenLayout",
-  //   version: isPreview() ? "draft" : "published",
-  // });
+  const { data } = await sbApi.get("cdn/stories/", {
+    starts_with: "digital-signage/",
+    content_type: "dsScreenLayout",
+    version: isPreview() ? "draft" : "published",
+  });
 
-  // const stories = Object.values(data.stories);
+  const stories = Object.values(data.stories);
 
-  return [];
-  // stories.map((story: any) => {
-  //   return {
-  //     params: { slug: story.full_slug.replace("digital-signage/", "") },
-  //   };
-  // });
+  return stories.map((story: any) => {
+    return {
+      params: { slug: story.full_slug.replace("digital-signage/", "") },
+    };
+  });
 }
 
 const sbApi = useStoryblokApi();
