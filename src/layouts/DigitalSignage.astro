@@ -4,7 +4,7 @@ const { scale } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" style={`font-size: ${32 / scale}px;`}>
+<html lang="en" style={`font-size: ${32 / (scale ? scale : 1)}px;`}>
   <head>
     <meta charset="utf-8" />
     <meta

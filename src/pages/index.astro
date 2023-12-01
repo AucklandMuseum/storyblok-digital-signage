@@ -1,0 +1,59 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import DigitalSignage from "layouts/DigitalSignage.astro";
+import * as ScreenSize from "utils/ScreenSize";
+
+export async function getStaticPaths() {
+  return {
+    params: { slug: "digital-signage" },
+  };
+}
+
+const sbApi = useStoryblokApi();
+
+const { data } = await sbApi.get(`cdn/stories/digital-signage`, {
+  version: "draft",
+});
+
+const blok = data.story.content;
+
+const textColor = blok.textColour?.color ? blok.textColour.color : "#FFFFFF";
+const backgroundColor = blok.backgroundColour?.color
+  ? blok.backgroundColour.color
+  : "#000000";
+
+const scale = blok?.scale ? blok.scale : 1;
+const orientation = blok?.orientation ? blok.orientation : "H";
+const resolution = blok?.resolution ? blok.resolution : "FHD";
+const screenWidth = ScreenSize.ResolutionWidth(resolution, orientation);
+const screenHeight = ScreenSize.ResolutionHeight(resolution, orientation);
+const blokWidth =
+  (screenWidth * (blok.widthNumber ? blok.widthNumber : 1)) / scale;
+const blokHeight =
+  (screenHeight * (blok.heightNumber ? blok.heightNumber : 1)) / scale;
+
+const allLivePages = await sbApi.get("cdn/stories/", {
+  starts_with: "digital-signage/",
+  content_type: "dsSignageAlias",
+  version: "published",
+});
+---
+
+<DigitalSignage>
+  <body
+    style={`color:${textColor};background-color:${backgroundColor};width:${blokWidth}px;height:${blokHeight}px;`}
+    ><div class="flex" style=`flex-direction: ${blok.panelFlow};`>
+      {
+        allLivePages.data.stories?.map((story: any) => {
+          return (
+            <p>
+              <a href={story.full_slug} target="_blank" class="underline">
+                {story.full_slug}
+              </a>
+            </p>
+          );
+        })
+      }
+    </div></body
+  >
+</DigitalSignage>

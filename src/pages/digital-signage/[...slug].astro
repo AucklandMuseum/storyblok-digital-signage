@@ -24,9 +24,12 @@ export async function getStaticPaths() {
 
 const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
-const { data } = await sbApi.get(`cdn/stories/digital-signage/${slug}`, {
-  version: isPreview() ? "draft" : "published",
-});
+const { data } = await sbApi.get(
+  `cdn/stories/digital-signage/${slug === undefined ? "" : slug}`,
+  {
+    version: isPreview() ? "draft" : "published",
+  }
+);
 
 const story = data.story;
 const blok = story.content;
