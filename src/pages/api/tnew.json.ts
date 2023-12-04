@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro'
 import axios from 'axios';
-
+export const prerender = false;
 export const GET: APIRoute = async ({ params, request }) => {
 
 	const API_ProductSearch = "TXN/Products/Search";
@@ -20,7 +20,6 @@ export const GET: APIRoute = async ({ params, request }) => {
 		"KeywordDescriptions": urlParams.get("keyword"),
 		"ProductionSeasonId": urlParams.get("productseasonid"),
 	  }
-	  console.log(data)
 
 	let vals = null;
 
@@ -35,9 +34,14 @@ export const GET: APIRoute = async ({ params, request }) => {
 		console.log(error);
 	  });
 
-  return new Response(
-    JSON.stringify(vals),
-  )
+    return new Response(
+      JSON.stringify(vals), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
 }
 
 /*
