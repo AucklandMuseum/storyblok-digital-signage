@@ -24,6 +24,10 @@ export async function getStaticPaths() {
 
 const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
+
+console.log(slug);
+if (slug === undefined) return Astro.redirect("/");
+
 const { data } = await sbApi.get(
   `cdn/stories/digital-signage/${slug === undefined ? "" : slug}`,
   {
@@ -33,9 +37,8 @@ const { data } = await sbApi.get(
 
 const story = data.story;
 const blok = story.content;
-const scale = blok.scale ? blok.scale : 1;
 ---
 
-<DigitalSignage scale={scale}>
+<DigitalSignage blok={blok}>
   <StoryblokComponent blok={blok} />
 </DigitalSignage>

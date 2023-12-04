@@ -1,10 +1,36 @@
 ---
 import "styles/global.css";
-const { scale } = Astro.props;
+import * as ScreenSize from "utils/ScreenSize";
+
+interface Props {
+  blok: any;
+}
+
+const { blok } = Astro.props;
+
+const textColor: string = blok.textColour?.color
+  ? blok.textColour.color
+  : "#FFFFFF";
+const backgroundColor: string = blok.backgroundColour?.color
+  ? blok.backgroundColour.color
+  : "#000000";
+
+const scale: number = blok?.scale ? blok.scale : 1;
+const orientation: "H" | "V" = blok?.orientation ? blok.orientation : "H";
+const resolution: string = blok?.resolution ? blok.resolution : "FHD";
+const screenWidth: number = ScreenSize.ResolutionWidth(resolution, orientation);
+const screenHeight: number = ScreenSize.ResolutionHeight(
+  resolution,
+  orientation
+);
+const blokWidth: number =
+  (screenWidth * (blok.widthNumber ? blok.widthNumber : 1)) / scale;
+const blokHeight: number =
+  (screenHeight * (blok.heightNumber ? blok.heightNumber : 1)) / scale;
 ---
 
 <!doctype html>
-<html lang="en" style={`font-size: ${32 / (scale ? scale : 1)}px;`}>
+<html lang="en" style=`font-size: ${32 / (scale ? scale : 1)}px;`>
   <head>
     <meta charset="utf-8" />
     <meta
@@ -34,8 +60,11 @@ const { scale } = Astro.props;
       crossorigin="anonymous"
     />
   </head>
-
-  <slot />
+  <body
+    style={`color:${textColor};background-color:${backgroundColor};width:${blokWidth}px;height:${blokHeight}px;`}
+  >
+    <slot />
+  </body>
 
   <style is:global>
     h1 {
@@ -78,6 +107,4 @@ const { scale } = Astro.props;
       @apply font-normal;
     }
   </style>
-
-
 </html>

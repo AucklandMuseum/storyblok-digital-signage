@@ -17,7 +17,7 @@ const { data } = await sbApi.get(`cdn/stories/digital-signage`, {
 const blok = data.story.content;
 
 const allLivePages = await sbApi.get("cdn/stories/", {
-  starts_with: "digital-signage",
+  starts_with: "digital-signage/",
   content_type: "dsSignageAlias",
   version: "published",
 });

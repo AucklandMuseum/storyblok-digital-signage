@@ -37,9 +37,8 @@ const lookupData = await sbApi.get(`cdn/stories/${alias.content.sourceUrl}`, {
 
 const story = lookupData.data.story;
 const blok = story.content;
-const scale = blok.scale ? blok.scale : 1;
 ---
 
-<DigitalSignage scale={scale}>
+<DigitalSignage blok={blok}>
   <StoryblokComponent blok={blok} />
 </DigitalSignage>
