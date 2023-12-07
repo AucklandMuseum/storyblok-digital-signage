@@ -21,6 +21,8 @@ const optimizedBackground = await getImage({
   width: imageSize,
   height: imageSize,
 });
+
+
 ---
 
 <div
@@ -53,7 +55,9 @@ const optimizedBackground = await getImage({
       >
         {blok?.tnewTitle}
       </h5>
-      <ul></ul>
+      <ul>
+        <li data-performanceid=\"{data.PerformanceId}\"  data-time=\"{performanceTime}\" class=\"{(performanceTime >= DateTime.Now ? "ds-future" : "ds-past")}\">{performanceTime.ToString("h:mm")}</li>
+      </ul>
       <h5 class="p-0 pt-1 uppercase tracking-wide">{blok?.manualTiming}</h5>
     </div>
   </div>
