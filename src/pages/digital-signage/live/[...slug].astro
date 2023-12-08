@@ -3,6 +3,7 @@ import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import DigitalSignage from "../../../layouts/DigitalSignage.astro";
 import { isPreview } from "utils/isPreview";
+import type { DsScreenLayoutStoryblok } from "../../../types/component-types-auckland-museum";
 
 export async function getStaticPaths() {
   const sbApi = useStoryblokApi();
@@ -36,9 +37,10 @@ const lookupData = await sbApi.get(`cdn/stories/${alias.content.sourceUrl}`, {
 });
 
 const story = lookupData.data.story;
-const blok = story.content;
+const blok: DsScreenLayoutStoryblok = story.content;
 ---
 
 <DigitalSignage blok={blok}>
   <StoryblokComponent blok={blok} />
 </DigitalSignage>
+ ../../../types/component-types-auckland-museum

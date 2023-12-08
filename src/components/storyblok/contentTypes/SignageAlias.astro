@@ -1,33 +1,45 @@
 ---
-  import { storyblokEditable } from "@storyblok/astro";
-  import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-  import * as ScreenSize from 'utils/ScreenSize'
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import * as ScreenSize from "utils/ScreenSize";
+import type { DsScreenLayoutStoryblok } from "types/component-types-auckland-museum";
 
-  const { blok } = Astro.props;
+const blok: DsScreenLayoutStoryblok = Astro.props.blok;
 
-  const textColor = blok.textColour?.color ? blok.textColour.color : "#FFFFFF";
-  const backgroundColor = blok.backgroundColour?.color
+const textColor = blok.textColour?.color ? blok.textColour.color : "#FFFFFF";
+const backgroundColor = blok.backgroundColour?.color
   ? blok.backgroundColour.color
   : "#000000";
 
-  const scale = blok?.scale ? blok.scale : 1;
-  const orientation = blok?.orientation ? blok.orientation : "H";
-  const resolution = blok?.resolution ? blok.resolution : "FHD";
-  const screenWidth = ScreenSize.ResolutionWidth(resolution, orientation);
-  const screenHeight = ScreenSize.ResolutionHeight(resolution, orientation);
-  const blokWidth = (screenWidth * (blok.widthNumber ? blok.widthNumber : 1)) / scale;
-  const blokHeight = (screenHeight * (blok.heightNumber ? blok.heightNumber : 1)) / scale;
+const scale = blok?.scale ? blok.scale : "1";
+const orientation = blok?.orientation ? blok.orientation : "H";
+const resolution = blok?.resolution ? blok.resolution : "FHD";
+const screenWidth = ScreenSize.ResolutionWidth(resolution, orientation);
+const screenHeight = ScreenSize.ResolutionHeight(resolution, orientation);
+const blokWidth =
+  (screenWidth *
+    (parseInt(blok.widthNumber) ? parseInt(blok.widthNumber) : 1)) /
+  parseInt(scale);
+const blokHeight =
+  (screenHeight *
+    (parseInt(blok.heightNumber) ? parseInt(blok.heightNumber) : 1)) /
+  parseInt(scale);
 ---
 
 <body
   {...storyblokEditable(blok)}
   style={`color:${textColor};background-color:${backgroundColor};width:${blokWidth}px;height:${blokHeight}px;`}
-><div class="flex" style=`flex-direction: ${blok.panelFlow};`>{
-    blok.content?.map((blok: any) => {
-      blok["scale"] = scale;
-      blok["orientation"] = orientation;
-      blok["parentWidth"] = blokWidth;
-      blok["parentHeight"] = blokHeight;
-      return <StoryblokComponent blok={blok} />;
-    })
-  }</div></body>
+  ><div class="flex" style=`flex-direction: ${blok.panelFlow};`>
+    {
+      blok.content?.map((blok: any) => {
+        blok["scale"] = scale;
+        blok["orientation"] = orientation;
+        blok["parentWidth"] = blokWidth;
+        blok["parentHeight"] = blokHeight;
+
+        return <StoryblokComponent blok={blok} />;
+      })
+    }
+  </div></body
+>
+ ../../../types/component-types-auckland-museum
