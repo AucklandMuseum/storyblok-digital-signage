@@ -1,7 +1,10 @@
 ---
 import {Image} from "astro:assets"
+import { isDisplayable } from "utils/amUtils";
 
 const { blok } = Astro.props;
+
+if (!isDisplayable(blok)) return;
 
 const scale = blok?.scale ? blok.scale : 1;
 const blokWidth = (blok.parentWidth ? blok.parentWidth : 1920) / scale;

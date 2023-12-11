@@ -1,22 +1,26 @@
 ---
-import { storyblokEditable, useStoryblokApi } from '@storyblok/astro'
-  import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
-  import * as ScreenSize from 'utils/ScreenSize'
-  import { isPreview } from 'utils/isPreview';
+import { storyblokEditable, useStoryblokApi } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import { isDisplayable, isPreview } from "utils/amUtils";
 
-  const { blok } = Astro.props
+const { blok } = Astro.props;
 
-  const sbApi = useStoryblokApi()
-  const { data } = await sbApi.get('cdn/stories',{by_uuids:blok.contentLookup,version: isPreview() ? "draft" : "published",});
+if (!isDisplayable(blok)) return;
 
-  const scale = blok?.scale ? blok.scale : 1;
+const sbApi = useStoryblokApi();
+const { data } = await sbApi.get("cdn/stories", {
+  by_uuids: blok.contentLookup,
+  version: isPreview() ? "draft" : "published",
+});
+
+const scale = blok?.scale ? blok.scale : 1;
 ---
 
 <div {...storyblokEditable(blok)}>
   {
     data.stories?.map((blok: any) => {
       blok.content["scale"] = scale;
-      return <StoryblokComponent blok={blok.content} />
+      return <StoryblokComponent blok={blok.content} />;
     })
   }
 </div>

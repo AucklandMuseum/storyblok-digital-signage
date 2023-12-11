@@ -1,7 +1,11 @@
 ---
 import { renderRichText, storyblokEditable } from "@storyblok/astro";
+import { isDisplayable } from "utils/amUtils";
 
 const { blok } = Astro.props;
+
+if (!isDisplayable(blok)) return;
+
 const renderedRichText = renderRichText(blok.content);
 ---
 

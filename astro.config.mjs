@@ -43,7 +43,7 @@ export default defineConfig({
       dsImageLoop: 'components/storyblok/widgets/ImageLoop',
     }
   }), tailwind(), react(), vue()],
-  output: env.STORYBLOK_IS_PREVIEW === 'yes' ? 'server' : 'hybrid',
+  output: env.STORYBLOK_IS_PREVIEW === 'yes' ? 'server' : env.STORYBLOK_SERVER,
   ...(env.STORYBLOK_ENV === 'development' && {
     vite: {
       server: {

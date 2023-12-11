@@ -29,7 +29,7 @@ const allLivePages = await sbApi.get("cdn/stories/", {
       allLivePages.data.stories?.map((story: any) => {
         return (
           <p>
-            <a href={story.full_slug} target="_blank" class="underline">
+            <a href=`/${story.full_slug}` target="_blank" class="underline">
               {story.full_slug}
             </a>
           </p>

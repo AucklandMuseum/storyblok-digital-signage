@@ -17,13 +17,13 @@
       ],
       "types/*": [
         "types/*"
-      ],
+      ]
     },
     "jsx": "preserve",
     "jsxImportSource": "react",
     "allowJs": true,
-    "types": [
-      "vite/client"
+    "typeRoots": [
+      "./src/types"
     ]
   }
 }

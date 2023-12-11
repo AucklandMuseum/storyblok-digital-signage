@@ -1,10 +1,10 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-import * as ScreenSize from "utils/ScreenSize";
+import { ResolutionWidth, ResolutionHeight } from "utils/amUtils";
 import type { DsScreenLayoutStoryblok } from "types/component-types-auckland-museum";
 
-const blok: DsScreenLayoutStoryblok = Astro.props.blok;
+const { blok } = Astro.props;
 
 const textColor = blok.textColour?.color ? blok.textColour.color : "#FFFFFF";
 const backgroundColor = blok.backgroundColour?.color
@@ -14,8 +14,8 @@ const backgroundColor = blok.backgroundColour?.color
 const scale = blok?.scale ? blok.scale : "1";
 const orientation = blok?.orientation ? blok.orientation : "H";
 const resolution = blok?.resolution ? blok.resolution : "FHD";
-const screenWidth = ScreenSize.ResolutionWidth(resolution, orientation);
-const screenHeight = ScreenSize.ResolutionHeight(resolution, orientation);
+const screenWidth = ResolutionWidth(resolution, orientation);
+const screenHeight = ResolutionHeight(resolution, orientation);
 const blokWidth =
   (screenWidth *
     (parseInt(blok.widthNumber) ? parseInt(blok.widthNumber) : 1)) /
@@ -42,4 +42,3 @@ const blokHeight =
     }
   </div></body
 >
- ../../../types/component-types-auckland-museum

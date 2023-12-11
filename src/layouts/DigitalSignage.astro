@@ -1,6 +1,6 @@
 ---
 import "styles/global.css";
-import * as ScreenSize from "utils/ScreenSize";
+import { ResolutionWidth, ResolutionHeight} from "utils/amUtils";
 
 interface Props {
   blok: any;
@@ -18,8 +18,8 @@ const backgroundColor: string = blok.backgroundColour?.color
 const scale: number = blok?.scale ? blok.scale : 1;
 const orientation: "H" | "V" = blok?.orientation ? blok.orientation : "H";
 const resolution: string = blok?.resolution ? blok.resolution : "FHD";
-const screenWidth: number = ScreenSize.ResolutionWidth(resolution, orientation);
-const screenHeight: number = ScreenSize.ResolutionHeight(
+const screenWidth: number = ResolutionWidth(resolution, orientation);
+const screenHeight: number = ResolutionHeight(
   resolution,
   orientation
 );

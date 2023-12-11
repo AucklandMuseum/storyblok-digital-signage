@@ -1,8 +1,11 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
-import { getImage } from "astro:assets";
+import type { DsTemplateStoryblok } from "types/component-types-auckland-museum";
+import { isDisplayable } from "utils/amUtils";
 
 const { blok } = Astro.props;
+
+if (!isDisplayable(blok)) return;
 
 const html = blok.htmlCode;
 ---

@@ -1,9 +1,15 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-import * as ScreenSize from "utils/ScreenSize";
+import {
+  isDisplayable,
+  ResolutionWidth,
+  ResolutionHeight,
+} from "utils/amUtils";
 
 const { blok } = Astro.props;
+
+if (!isDisplayable(blok)) return;
 
 const textColor = blok.textColour?.color ? blok.textColour.color : "#FFFFFF";
 const backgroundColor = blok.backgroundColour?.color
@@ -17,8 +23,8 @@ const borderWidth = blok.borderWidth ? blok.borderWidth : "none";
 const scale = blok?.scale ? blok.scale : 1;
 const orientation = blok.orientation ? blok.orientation : "H";
 const resolution = blok.resolution ? blok.resolution : "FHD";
-const screenWidth = ScreenSize.ResolutionWidth(resolution, orientation);
-const screenHeight = ScreenSize.ResolutionHeight(resolution, orientation);
+const screenWidth = ResolutionWidth(resolution, orientation);
+const screenHeight = ResolutionHeight(resolution, orientation);
 const blokWidth =
   (screenWidth * (blok.widthNumber ? blok.widthNumber : 1)) / scale;
 const blokHeight =
@@ -36,7 +42,8 @@ const blokHeight =
       blok["orientation"] = orientation;
       blok["parentWidth"] = blokWidth;
       blok["parentHeight"] = blokHeight;
-      return <StoryblokComponent blok={blok} />;
+      return isDisplayable(blok) ? <StoryblokComponent blok={blok} /> : <></>;
+      //return <StoryblokComponent blok={blok} />;
     })
   }
 </div>
