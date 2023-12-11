@@ -18,7 +18,7 @@ function isPreview():boolean {
 }
 
 function isDisplayable(blok:any):boolean {
-console.log("isDisplayable",blok.publishTo)
+
 	//If Preview mode return OK
 	if(isPreview()) return true;
 
@@ -31,12 +31,6 @@ console.log("isDisplayable",blok.publishTo)
 	//Check if publish dates are null or empty and cmapre to Now
 	if(Date.parse(blok.publishFrom === "" ? minDateISOString : blok.publishFrom ?? minDateISOString) <= dateNow) validFrom = true;
 	if(Date.parse(blok.publishTo === "" ? maxDateISOString : blok.publishTo ?? maxDateISOString) >= dateNow) validTo = true;
-	
-	console.log("comparison",blok.publishTo === "" ? maxDateISOString : blok.publishTo ?? maxDateISOString)
-	console.log("now", dateNow);
-	console.log("datetimetoISO", Date.parse(new Date(dateNow).toISOString()));
-	console.log("validFrom", validFrom);
-	console.log("validTo", validTo);
 
 	return validFrom && validTo;
 }
