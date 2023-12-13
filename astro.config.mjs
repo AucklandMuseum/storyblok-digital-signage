@@ -24,7 +24,7 @@ export default defineConfig({
   trailingSlash: 'never',
   integrations: [storyblok({
     accessToken: env.STORYBLOK_TOKEN,
-    bridge: env.STORYBLOK_IS_PREVIEW === 'yes',
+    bridge: env.STORYBLOK_IS_PREVIEW === 'true',
     apiOptions: {
       region: 'us'
     },
