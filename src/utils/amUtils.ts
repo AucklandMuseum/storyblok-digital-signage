@@ -14,7 +14,7 @@ const ResolutionWidth = (size: string, orientation: "H" | "V" | "horizontal" | "
 const ResolutionHeight = (size: string, orientation: "H" | "V" | "horizontal" | "vertical") => orientation == "H" ? Resolution[size][1] : Resolution[size][0]
 
 function isPreview():boolean {
-	return import.meta.env.STORYBLOK_IS_PREVIEW === 'true'
+	return import.meta.env.STORYBLOK_IS_PREVIEW === 'yes'
 }
 
 function isDisplayable(blok:any):boolean {

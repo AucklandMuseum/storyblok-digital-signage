@@ -3,7 +3,6 @@ import storyblok from '@storyblok/astro';
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import vue from "@astrojs/vue";
-import compressor from "astro-compressor";
 import { loadEnv } from "vite";
 import node from "@astrojs/node";
 import netlify from "@astrojs/netlify/functions";
@@ -24,7 +23,7 @@ export default defineConfig({
   trailingSlash: 'never',
   integrations: [storyblok({
     accessToken: env.STORYBLOK_TOKEN,
-    bridge: env.STORYBLOK_IS_PREVIEW === 'true',
+    bridge: env.STORYBLOK_IS_PREVIEW === 'yes',
     apiOptions: {
       region: 'us'
     },
