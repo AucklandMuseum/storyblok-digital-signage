@@ -7,21 +7,7 @@ import { isPreview } from "utils/amUtils.js";
 export const prerender = false;
 
 export async function getStaticPaths() {
-  const sbApi = useStoryblokApi();
-
-  const { data } = await sbApi.get("cdn/stories/", {
-    starts_with: "digital-signage/",
-    content_type: "dsScreenLayout",
-    version: isPreview() ? "draft" : "published",
-  });
-
-  const stories = Object.values(data.stories);
-
-  stories.map((story: any) => {
-    return {
-      params: { slug: story.full_slug.replace("digital-signage/", "") },
-    };
-  });
+  return [];
 }
 
 const sbApi = useStoryblokApi();
